@@ -80,6 +80,10 @@ plt.tight_layout()
 plt.show();
 
 
+# ........................................................................................... #
+# FEATURE IMPORTANCES PLOT (for ML Models) #
+
+# Using basing plt:
 
 # Updated, more efficient and universally applicable "Feature Importances" plot, (for Best) which uses a dataframe, rather than piecemeal bits and indices;
 
@@ -101,6 +105,61 @@ plt.xlabel('Importance')
 plt.ylabel('Feature')
 plt.grid()
 plt.show();
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
+
+# And now - with plotly express!
+
+import plotly.express as px
+
+# Create a dataframe for feature importances
+feature_importances = pd.DataFrame({
+    "Feature": X.columns
+    , "Importance": best_xgb.feature_importances_
+}).sort_values(
+    by="Importance"
+    , ascending=False)
+
+# Select the top 15 features
+top_features = feature_importances.head(15)
+
+# Create the bar chart
+fig = px.bar(
+    top_features
+    , x="Importance"
+    , y="Feature"
+    , orientation="h"  # Horizontal bar chart
+    , title="Top 15 Feature Importances"
+    , color="Importance"  # Add color based on importance
+    , color_continuous_scale="viridis_r"  # Match the seaborn palette
+)
+
+# Update layout for better appearance
+fig.update_layout(
+    xaxis_title="Importance"
+    , yaxis_title="Feature"
+    , yaxis=dict(
+        autorange="reversed")  # Reverse the y-axis for a similar order to Seaborn
+    , template="seaborn"  # Clean background style
+)
+
+# Show the figure
+fig.show();
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
+
+# Feature importances plot Option 3: yellowbrick (seems to accomplish in less code!)
+
+from yellowbrick.model_selection import (FeatureImportances, )
+plt.style.use('seaborn-v0_8-darkgrid')
+
+fig, ax = plt.subplots(figsize=(10, 8))
+fi_viz = FeatureImportances(
+    best_xgb, topn=15
+    , colormap='RdBu'
+)
+fi_viz.fit(X_train, y_train)
+fi_viz.show();
 
 
 # ------------------------------------------------------------------------------------------------- #
