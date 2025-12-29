@@ -9,6 +9,29 @@
 # ------------------------------------------------------------------------------------------------- #
 # ------------------------------------------------------------------------------------------------- #
 
+# Seaborn Plots (side-by-side) #
+
+# Side-by-side boxplots with Seaborn (from two diff't dataframes):
+
+fig, ax = plt.subplots(
+    1, 2 # 1 row, 2 columns
+    , figsize=(12, 6)
+    , sharey=True  # Uncomment to share y-axis
+    )
+
+sns.boxplot((df['GarageArea']), ax=ax[0])
+sns.boxplot((df2['GarageArea']), ax=ax[1])
+
+ax[0].set_title('Boxplot of GarageArea - with Outliers') 
+ax[1].set_title('Boxplot of GarageArea - without Outliers')
+
+plt.tight_layout()
+plt.show();
+
+# ------------------------------------------------------------------------------------------------- #
+# ------------------------------------------------------------------------------------------------- #
+# ------------------------------------------------------------------------------------------------- #
+
 # Machine Learning Useful Plots #
 
 # ........................................................................................... #
