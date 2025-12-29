@@ -5,8 +5,13 @@
     
     Let the viz begin!
 '''
+# ------------------------------------------------------------------------------------------------- #
+# ------------------------------------------------------------------------------------------------- #
+# ------------------------------------------------------------------------------------------------- #
 
 # Machine Learning Useful Plots #
+
+# ........................................................................................... #
 
 # To do a side-by-side, normalized Confusion Matrix (CM) comparison after running a 'GridSearchCV' so show the 'base' model vs. the 'best' (Best vs. Base):
 # (using sklearn.metricsConfusionMatrixDisplay) 
@@ -32,9 +37,30 @@ ax[1].set_title('Base Model')
 plt.tight_layout()
 plt.show();
 
+# ........................................................................................... #
+
+# PrecisionRecallDisplay.from_estimator(best_xgb, X_test, y_test)
+# To do a side-by-side, normalized PRC comparison (Best vs. Base):
+
+fig, ax = plt.subplots(1, 2, figsize=(12, 6))
+
+PrecisionRecallDisplay.from_estimator(
+    best_xgb, X_test, y_test, ax=ax[0]
+)
+
+PrecisionRecallDisplay.from_estimator(
+    xgb_clf, X_test, y_test, ax=ax[1]
+)
+
+ax[0].set_title('Best Model (Precision Recall Curve)')
+ax[1].set_title('Base Model (Precision Recall Curve)')
+
+plt.tight_layout()
+plt.show();
+
+# ........................................................................................... #
 
 # RocCurveDisplay.from_estimator(best_xgb, X_test, y_test);
-
 # To do a side-by-side, normalized ROC/AUC comparison (Best vs. Base):
 
 fig, ax = plt.subplots(1, 2, figsize=(12, 6))
@@ -52,3 +78,31 @@ ax[1].set_title('Base Model (ROC/AUC Curve)')
 
 plt.tight_layout()
 plt.show();
+
+
+
+# Updated, more efficient and universally applicable "Feature Importances" plot, (for Best) which uses a dataframe, rather than piecemeal bits and indices;
+
+feature_importances = pd.DataFrame({
+    "Feature": X.columns
+    , "Importance": best_xgb.feature_importances_
+}).sort_values(
+    by="Importance", ascending=False)
+
+plt.figure(figsize=(10, 8))
+sns.barplot(
+    x="Importance", y="Feature"
+    , data=feature_importances.head(15)
+    , palette="inferno"
+)
+
+plt.title('Top 15 Feature Importances')
+plt.xlabel('Importance')
+plt.ylabel('Feature')
+plt.grid()
+plt.show();
+
+
+# ------------------------------------------------------------------------------------------------- #
+# ------------------------------------------------------------------------------------------------- #
+# ------------------------------------------------------------------------------------------------- #
