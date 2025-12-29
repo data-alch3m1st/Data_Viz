@@ -31,3 +31,24 @@ ax[1].set_title('Base Model')
 
 plt.tight_layout()
 plt.show();
+
+
+# RocCurveDisplay.from_estimator(best_xgb, X_test, y_test);
+
+# To do a side-by-side, normalized ROC/AUC comparison (Best vs. Base):
+
+fig, ax = plt.subplots(1, 2, figsize=(12, 6))
+
+RocCurveDisplay.from_estimator(
+    best_xgb, X_test, y_test, ax=ax[0]
+)
+
+RocCurveDisplay.from_estimator(
+    xgb_clf, X_test, y_test, ax=ax[1]
+)
+
+ax[0].set_title('Best Model (ROC/AUC Curve)')
+ax[1].set_title('Base Model (ROC/AUC Curve)')
+
+plt.tight_layout()
+plt.show();
