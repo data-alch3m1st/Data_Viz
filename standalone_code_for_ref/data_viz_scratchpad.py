@@ -45,7 +45,18 @@ numeric_cols = df.select_dtypes(include=np.number).columns
 # Set the max number of plots per row:
 max_cols = 3 # Adjust as needed, but keep space and visibility/readability in mind;
 
+# Calculate the number of rows needed based on the number of numeric columns:
+num_plots = len(numeric_cols)
+num_rows = int(np.ceil(num_plots / max_cols) ) # Ceiling division
 
+# Generate a list of colors; (one color per column)
+colors = sns.color_pallette("husl", num_plots) # Use Seaborn color palette for distinct colors;
+
+# Create subplots with calculated rows and fixed columns:
+fig, axes = plt.subplots(
+    num_rows
+    , max_cols
+    , figsize=(max_cols * 4, num_rows * 4))
 
 
 # ------------------------------------------------------------------------------------------------- #
