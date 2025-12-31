@@ -56,7 +56,26 @@ colors = sns.color_pallette("husl", num_plots) # Use Seaborn color palette for d
 fig, axes = plt.subplots(
     num_rows
     , max_cols
-    , figsize=(max_cols * 4, num_rows * 4))
+    , figsize=(max_cols * 4, num_rows * 4)
+    . sharey=False # Adjust as needed; (True for boxplots, False for histplots)
+    )
+
+# Flatten the axes array for easy iteration:
+axes = axes.flatten()
+
+# Loop through each numeric columns, colors and axes:
+for i, (col, color) in enumerate(zip(numeric_cols, colors)):
+    sns.boxplot(
+        data=df
+        , x=col
+        , ax=axes[i]
+        , color=color
+        )
+    axes[i].set_title(f'Boxplot of {col}')
+    axes[i].grid()
+    
+    
+
 
 
 # ------------------------------------------------------------------------------------------------- #
