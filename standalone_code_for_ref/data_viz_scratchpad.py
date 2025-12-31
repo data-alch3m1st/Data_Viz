@@ -30,14 +30,9 @@ plt.show();
 
 # ........................................................................................... #
 
-# PLOTTING ALL DF NUMERIC COLS AT SCALE (either histplots or boxplots;) #
+# PLOTTING ALL DF NUMERIC COLS AT SCALE (either histplots or boxplots;) AWESOME Loop for plotting ALL numeric cols in a df to see distributions (histplots) or outliers (boxplots) #
 
-# AWESOME Loop for plotting ALL numeric cols in a df to see distributions (histplots) or outliers (boxplots):
-
-import pandas as pd
-import numpy as np
-import seaborn as sns
-import matplotlib.pyplot as plt 
+# NUMERIC COLS BOXPLOT LOOP #
 
 # Automatically select all numerical cols from a df:
 numeric_cols = df.select_dtypes(include=np.number).columns
@@ -50,14 +45,69 @@ num_plots = len(numeric_cols)
 num_rows = int(np.ceil(num_plots / max_cols) ) # Ceiling division
 
 # Generate a list of colors; (one color per column)
-colors = sns.color_pallette("husl", num_plots) # Use Seaborn color palette for distinct colors;
+colors = sns.color_palette("husl", num_plots) # Use Seaborn color palette for distinct colors;
 
 # Create subplots with calculated rows and fixed columns:
 fig, axes = plt.subplots(
     num_rows
     , max_cols
     , figsize=(max_cols * 4, num_rows * 4)
-    . sharey=False # Adjust as needed; (True for boxplots, False for histplots)
+    , sharey=False # Adjust as needed; 
+    )
+
+# Flatten the axes array for easy iteration:
+axes = axes.flatten()
+
+# Loop through each numeric columns, colors and axes:
+for i, (col, color) in enumerate(zip(numeric_cols, colors)):
+    sns.boxplot(
+        data=df
+        , x=col # can manipulate the orientation by assignment of 'x' / 'y';
+        , ax=axes[i]
+        , color=color
+#         , orient="h"
+        )
+    axes[i].set_title(f'Boxplot of {col}')
+    axes[i].grid()
+    
+# Hide any unused axes (if num_plots < num_rows * max_cols):
+for j in range(num_plots, len(axes)):
+    fig.delaxes(axes[j])
+    
+# Adjust layout and display the plot(s):
+plt.tight_layout()
+plt.show();
+
+
+
+# HISTPLOT LOOP #
+
+import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt 
+
+# NUMERIC COLS LOOP—BOXPLOT:
+
+# Automatically select all numerical cols from a df:
+numeric_cols = df.select_dtypes(include=np.number).columns
+
+# Set the max number of plots per row:
+max_cols = 3 # Adjust as needed, but keep space and visibility/readability in mind;
+
+# Calculate the number of rows needed based on the number of numeric columns:
+num_plots = len(numeric_cols)
+num_rows = int(np.ceil(num_plots / max_cols) ) # Ceiling division
+
+# Generate a list of colors; (one color per column)
+colors = sns.color_palette("husl", num_plots) # Use Seaborn color palette for distinct colors;
+
+# Create subplots with calculated rows and fixed columns:
+fig, axes = plt.subplots(
+    num_rows
+    , max_cols
+    , figsize=(max_cols * 4, num_rows * 4)
+    , sharey=False # Adjust as needed; (True for boxplots, False for histplots)
     )
 
 # Flatten the axes array for easy iteration:
@@ -70,13 +120,18 @@ for i, (col, color) in enumerate(zip(numeric_cols, colors)):
         , x=col
         , ax=axes[i]
         , color=color
+        , orient="h"
         )
     axes[i].set_title(f'Boxplot of {col}')
     axes[i].grid()
     
+# Hide any unused axes (if num_plots < num_rows * max_cols):
+for j in range(num_plots, len(axes)):
+    fig.delaxes(axes[j])
     
-
-
+# Adjust layout and display the plot(s):
+plt.tight_layout()
+plt.show();
 
 # ------------------------------------------------------------------------------------------------- #
 # ------------------------------------------------------------------------------------------------- #
