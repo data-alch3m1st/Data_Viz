@@ -32,6 +32,20 @@ plt.show();
 
 # PLOTTING ALL DF NUMERIC COLS AT SCALE (either histplots or boxplots;) #
 
+# AWESOME Loop for plotting ALL numeric cols in a df to see distributions (histplots) or outliers (boxplots):
+
+import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt 
+
+# Automatically select all numerical cols from a df:
+numeric_cols = df.select_dtypes(include=np.number).columns
+
+# Set the max number of plots per row:
+max_cols = 3 # Adjust as needed, but keep space and visibility/readability in mind;
+
+
 
 
 # ------------------------------------------------------------------------------------------------- #
