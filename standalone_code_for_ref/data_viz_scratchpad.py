@@ -11,6 +11,18 @@
 
 # Seaborn Plots #
 
+# Simple side-by-side histplot & boxplot (same df, single col;)
+
+fig, ax = plt.subplots(1, 2, figsize=(8, 4))
+
+sns.histplot(df, ax=ax[0])
+sns.boxplot(df, ax=ax[1])
+
+plt.tight_layout()
+plt.show();
+
+# ........................................................................................... #
+
 # Side-by-side boxplots with Seaborn (from two diff't dataframes):
 
 fig, ax = plt.subplots(
@@ -87,7 +99,7 @@ import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt 
 
-# NUMERIC COLS LOOP—BOXPLOT:
+# NUMERIC COLS LOOP—HISTPLOT:
 
 # Automatically select all numerical cols from a df:
 numeric_cols = df.select_dtypes(include=np.number).columns
@@ -107,7 +119,7 @@ fig, axes = plt.subplots(
     num_rows
     , max_cols
     , figsize=(max_cols * 4, num_rows * 4)
-    , sharey=False # Adjust as needed; (True for boxplots, False for histplots)
+    , sharey=False # Adjust as needed; 
     )
 
 # Flatten the axes array for easy iteration:
@@ -115,13 +127,13 @@ axes = axes.flatten()
 
 # Loop through each numeric columns, colors and axes:
 for i, (col, color) in enumerate(zip(numeric_cols, colors)):
-    sns.boxplot(
-        data=df
-        , x=col
+    sns.histplot(
+        df[col]
+        , kde=True
         , ax=axes[i]
         , color=color
-        , orient="h"
         )
+    
     axes[i].set_title(f'Boxplot of {col}')
     axes[i].grid()
     
