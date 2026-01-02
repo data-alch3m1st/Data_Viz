@@ -5,6 +5,16 @@
     
     Let the viz begin!
 '''
+# Misc setups, adjustments, etc.:
+
+# Setting up plot/grid style:
+
+plt.style.available 
+# ^^^ This will show the plt styles which are available (the names arent intuitive, so its definitely helpful!)
+
+sns.set_style('darkgrid')
+plt.style.use('seaborn-v0_8-darkgrid')
+
 # ------------------------------------------------------------------------------------------------- #
 # ------------------------------------------------------------------------------------------------- #
 # ------------------------------------------------------------------------------------------------- #
@@ -44,13 +54,15 @@ plt.show();
 
 # PLOTTING ALL DF NUMERIC COLS AT SCALE (either histplots or boxplots;) AWESOME Loop for plotting ALL numeric cols in a df to see distributions (histplots) or outliers (boxplots) #
 
-# NUMERIC COLS BOXPLOT LOOP #
+# NUMERIC COLS LOOP—BOXPLOT:
 
 # Automatically select all numerical cols from a df:
 numeric_cols = df.select_dtypes(include=np.number).columns
 
 # Set the max number of plots per row:
 max_cols = 3 # Adjust as needed, but keep space and visibility/readability in mind;
+
+plt.style.use('seaborn-v0_8-darkgrid')
 
 # Calculate the number of rows needed based on the number of numeric columns:
 num_plots = len(numeric_cols)
@@ -74,19 +86,19 @@ axes = axes.flatten()
 for i, (col, color) in enumerate(zip(numeric_cols, colors)):
     sns.boxplot(
         data=df
-        , x=col # can manipulate the orientation by assignment of 'x' / 'y';
+        , y=col # can manipulate the orientation by assignment of 'x' / 'y';
         , ax=axes[i]
         , color=color
 #         , orient="h"
         )
     axes[i].set_title(f'Boxplot of {col}')
-    axes[i].grid()
     
 # Hide any unused axes (if num_plots < num_rows * max_cols):
 for j in range(num_plots, len(axes)):
     fig.delaxes(axes[j])
     
 # Adjust layout and display the plot(s):
+plt.style.use('seaborn-v0_8-darkgrid')
 plt.tight_layout()
 plt.show();
 
