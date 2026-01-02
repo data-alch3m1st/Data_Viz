@@ -103,6 +103,7 @@ plt.tight_layout()
 plt.show();
 
 
+# ........................................................................................... #
 
 # HISTPLOT LOOP #
 
@@ -147,15 +148,90 @@ for i, (col, color) in enumerate(zip(numeric_cols, colors)):
         )
     
     axes[i].set_title(f'Boxplot of {col}')
-    axes[i].grid()
+#     axes[i].grid() # remove; not actually showing grid!
+#     plt.style.use('seaborn-v0_8-darkgrid') # Can set preferred style in the loop or outside (added @ end;)
     
 # Hide any unused axes (if num_plots < num_rows * max_cols):
 for j in range(num_plots, len(axes)):
     fig.delaxes(axes[j])
     
 # Adjust layout and display the plot(s):
+plt.style.use('seaborn-v0_8-darkgrid')
 plt.tight_layout()
 plt.show();
+
+
+# NOW—the same histplot & boxplot, but in a script which can be applied to either!!!
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+def plot_numeric_cols(
+    df: pd.DataFrame
+    , plot_type: str = "boxplot"
+    , max_cols: int = 3
+    , figsize: tuple = (12, 8)
+    , sharey: bool = False
+    , palette: str = "husl"
+    , orient: str = "v"
+):
+    """
+    Plot all numeric columns in a DataFrame as boxplots or histplots.
+
+    Parameters:
+    -----------
+    df : pd.DataFrame
+        The DataFrame containing the data to plot.
+    plot_type : str, optional (default="boxplot")
+        Type of plot: "boxplot" or "histplot".
+    max_cols : int, optional (default=3)
+        Maximum number of plots per row.
+    figsize : tuple, optional (default=(12, 8))
+        Figure size (width, height) in inches.
+    sharey : bool, optional (default=False)
+        If True, y-axes will be shared across all subplots.
+    palette : str, optional (default="husl")
+        Seaborn color palette to use.
+    orient : str, optional (default="v")
+        Orientation of the plot: "v" (vertical) or "h" (horizontal).
+    """
+    # Select only numeric columns
+    numeric_cols = df.select_dtypes(include=np.number).columns
+    num_plots = len(numeric_cols)
+
+    # Calculate number of rows needed
+    num_rows = int(np.ceil(num_plots / max_cols))
+
+    # Generate colors
+    colors = sns.color_palette(palette, num_plots)
+
+    # Create subplots
+    fig, axes = plt.subplots(
+        num_rows, max_cols, figsize=figsize, sharey=sharey
+    )
+    axes = axes.flatten()
+
+    # Plot each numeric column
+    for i, (col, color) in enumerate(zip(numeric_cols, colors)):
+        if plot_type == "boxplot":
+            sns.boxplot(data=df, y=col, ax=axes[i], color=color, orient=orient)
+            axes[i].set_title(f"Boxplot of {col}")
+        elif plot_type == "histplot":
+            sns.histplot(data=df, x=col, ax=axes[i], color=color, kde=True)
+            axes[i].set_title(f"Histogram of {col}")
+        else:
+            raise ValueError("plot_type must be 'boxplot' or 'histplot'")
+
+    # Hide unused axes
+    for j in range(num_plots, len(axes)):
+        fig.delaxes(axes[j])
+
+    # Adjust layout and display
+    plt.style.use("seaborn-v0_8-darkgrid")
+    plt.tight_layout()
+    plt.show();
 
 # ------------------------------------------------------------------------------------------------- #
 # ------------------------------------------------------------------------------------------------- #
