@@ -413,6 +413,11 @@ fig = px.scatter(
     , x='date'
     , y='value'
     , width=1200, height=1000
+    , color='direction' # for in/out flows (df would need a 'direction' col with 'in'/'out' values)
+    , opacity=0.6
+    , 
+    , 
+    
 )
 
 
