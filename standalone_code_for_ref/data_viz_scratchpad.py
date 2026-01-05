@@ -426,7 +426,10 @@ fig = px.scatter(
     . title='BTC Transfers (In/Out)'
     , hover_data={
         'date': '|%Y-%m-%d %H:%M'
-        , 'abs_val_USD'}
+        , 'abs_val_USD': ':$,.2f'
+        , '': 
+        , '': 
+        }
     
 )
 
