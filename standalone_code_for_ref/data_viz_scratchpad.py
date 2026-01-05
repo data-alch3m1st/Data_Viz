@@ -232,6 +232,14 @@ def plot_numeric_cols(
     plt.style.use("seaborn-v0_8-darkgrid")
     plt.tight_layout()
     plt.show();
+    
+# Example usage:
+plot_numeric_cols(
+    df, plot_type="boxplot"
+    , max_cols=4, figsize=(16, 12), sharey=False
+    , palette="Set2"
+    , orient="v"
+    )
 
 # ------------------------------------------------------------------------------------------------- #
 # ------------------------------------------------------------------------------------------------- #
