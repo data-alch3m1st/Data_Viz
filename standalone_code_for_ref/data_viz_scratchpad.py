@@ -434,9 +434,10 @@ fig = px.scatter(
         'abs_val_native': 'Amount Native Asset (BTC)'
         , 'abs_val_USD': 'Amount USD'
         }
+    , size_max=100
     )
     
-)
+fig.show()
 
 
 
