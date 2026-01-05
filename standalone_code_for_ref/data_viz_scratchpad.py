@@ -408,15 +408,25 @@ fi_viz.show();
 
 # px scatter plot to viz in/out flows:
 
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+import plotly.express as px
+
 fig = px.scatter(
     dataframe=df
     , x='date'
     , y='value'
     , width=1200, height=1000
     , color='direction' # for in/out flows (df would need a 'direction' col with 'in'/'out' values)
-    , opacity=0.6
-    , 
-    , 
+    , opacity=0.5
+    , size='abs_val_USD'
+    . title='BTC Transfers (In/Out)'
+    , hover_data={
+        'date': '|%Y-%m-%d %H:%M'
+        , 'abs_val_USD'}
     
 )
 
