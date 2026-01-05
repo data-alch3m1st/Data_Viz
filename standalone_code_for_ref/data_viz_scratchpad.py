@@ -236,7 +236,9 @@ def plot_numeric_cols(
 # Example usage:
 plot_numeric_cols(
     df, plot_type="boxplot"
-    , max_cols=4, figsize=(16, 12), sharey=False
+    , max_cols=4
+    , figsize=(16, 12)
+    , sharey=False
     , palette="Set2"
     , orient="v"
     )
