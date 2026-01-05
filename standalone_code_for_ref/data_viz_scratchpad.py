@@ -430,7 +430,11 @@ fig = px.scatter(
         , 'receiving_address': True
         , 'counterparty_address': True
         }
-    , 
+    , labels={
+        'abs_val_native': 'Amount Native Asset (BTC)'
+        , 'abs_val_USD': 'Amount USD'
+        }
+    )
     
 )
 
