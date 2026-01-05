@@ -416,7 +416,7 @@ import seaborn as sns
 import plotly.express as px
 
 fig = px.scatter(
-    dataframe=df
+    data_frame=df
     , x='date'
     , y='value'
     , width=1200, height=1000
