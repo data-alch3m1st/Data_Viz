@@ -427,9 +427,10 @@ fig = px.scatter(
     , hover_data={
         'date': '|%Y-%m-%d %H:%M'
         , 'abs_val_USD': ':$,.2f'
-        , '': 
-        , '': 
+        , 'receiving_address': True
+        , 'counterparty_address': True
         }
+    , 
     
 )
 
