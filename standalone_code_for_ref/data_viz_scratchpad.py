@@ -105,11 +105,16 @@ plt.show();
 
 # Now the same as above—but with plotly express!
 
+# Functioning plotly.express boxplot grid for all numeric columns in a dataframe:
 import plotly.express as px
 import plotly.subplots as sp
 import pandas as pd
 import numpy as np
 
+# Automatically select numerical columns from the dataframe:
+numeric_cols = df.select_dtypes(include=np.number).columns
+
+# Set the max number of plots per row:
 
 
 
