@@ -147,6 +147,9 @@ for i, col in enumerate(numeric_cols):
         , row=row
         , col=col_pos
         )
+    
+    fig.update_xaxes(row=row, col=col_pos)
+    fig.update_yaxes(title_text=col, row=row, col=col_pos)
 
 
 
