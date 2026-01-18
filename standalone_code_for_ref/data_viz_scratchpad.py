@@ -150,6 +150,14 @@ for i, col in enumerate(numeric_cols):
     
     fig.update_xaxes(row=row, col=col_pos)
     fig.update_yaxes(title_text=col, row=row, col=col_pos)
+    
+# Update layout for better appearance
+fig.update_layout(
+    height=num_rows * 400
+    , width=max_cols * 500
+    , showlegend=False
+    , title_text="Boxplots of Numeric Columns"
+    )
 
 
 
