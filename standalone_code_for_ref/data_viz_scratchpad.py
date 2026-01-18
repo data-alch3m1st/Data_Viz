@@ -119,6 +119,15 @@ max_cols = 3 # Adjust as needed
 num_plots = len(numeric_cols)
 num_rows = int(np.ceil(num_plots / max_cols))
 
+# Create subplot figure:
+fig = sp.make_subplots(
+    rows=num_rows
+    , cols=max_cols
+    , subplot_titles=numeric_cols
+    , vertical_spacing=0.1
+    , horizontal_spacing=0.1
+    )
+
 
 
 
