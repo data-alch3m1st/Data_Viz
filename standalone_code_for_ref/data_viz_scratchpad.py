@@ -159,6 +159,7 @@ fig.update_layout(
     , title_text="Boxplots of Numeric Columns"
     )
 
+fig.show()
 
 
 # ........................................................................................... #
