@@ -115,6 +115,11 @@ import numpy as np
 numeric_cols = df.select_dtypes(include=np.number).columns
 
 # Set the max number of plots per row:
+max_cols = 3 # Adjust as needed
+num_plots = len(numeric_cols)
+num_rows = int(np.ceil(num_plots / max_cols))
+
+
 
 
 
