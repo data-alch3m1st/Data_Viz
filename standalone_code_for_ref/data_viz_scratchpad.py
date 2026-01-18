@@ -134,7 +134,7 @@ colors = px.colors.qualitative.Plotly
 # Add boxplots to the subplots:
 for i, col in enumerate(numeric_cols):
     row = (i // max_cols) + 1
-    col_position = (i % max_cols) + 1
+    col_pos = (i % max_cols) + 1
     
     box_fig = px.box(
         df, y=col
@@ -142,19 +142,10 @@ for i, col in enumerate(numeric_cols):
     )
     
     box_trace = box_fig.data[0]
-        
-        
-        
-        
-        
     fig.add_trace(
-        px.box(
-            df
-            , y=col
-            , color_discrete_sequence=[colors[i % len(colors)]]
-            ).data[0]
+        box_trace
         , row=row
-        , col=col_position
+        , col=col_pos
         )
 
 
