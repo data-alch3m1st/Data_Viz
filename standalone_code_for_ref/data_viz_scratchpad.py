@@ -128,6 +128,9 @@ fig = sp.make_subplots(
     , horizontal_spacing=0.1
     )
 
+# Color palette (similar to Seaborn's "husl"):
+colors = px.colors.qualitative.Plotly
+
 
 
 
