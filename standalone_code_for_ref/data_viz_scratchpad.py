@@ -15,6 +15,12 @@ plt.style.available
 sns.set_style('darkgrid')
 plt.style.use('seaborn-v0_8-darkgrid')
 
+# Misc Plotly hax:
+
+# Can sometimes fix "dissappearing plots" in Jupyter Notebooks by setting the default renderer:
+import plotly.io as pio
+pio.renderers.default = "iframe"
+
 # ------------------------------------------------------------------------------------------------- #
 # ------------------------------------------------------------------------------------------------- #
 # ------------------------------------------------------------------------------------------------- #
@@ -101,6 +107,7 @@ for j in range(num_plots, len(axes)):
 plt.style.use('seaborn-v0_8-darkgrid')
 plt.tight_layout()
 plt.show();
+
 
 
 # Now the same as above—but with plotly express!
