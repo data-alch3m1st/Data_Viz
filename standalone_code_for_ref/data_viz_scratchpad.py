@@ -106,6 +106,8 @@ for j in range(num_plots, len(axes)):
 # Adjust layout and display the plot(s):
 plt.style.use('seaborn-v0_8-darkgrid')
 plt.tight_layout()
+
+# Show the plots:
 plt.show();
 
 
