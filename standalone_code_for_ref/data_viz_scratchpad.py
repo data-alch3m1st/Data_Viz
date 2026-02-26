@@ -525,7 +525,11 @@ import plotly.express as px
 # Create the fig with hover data and labels:
 
 px.line(
-    
+    data_frame=df
+    , x='datetime'
+    , y='market_value_USD'
+    , width=1200, height=900
+    , 
 )
 
 
